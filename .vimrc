@@ -23,79 +23,45 @@ Plugin 'https://github.com/marcweber/vim-addon-mw-utils'
 Plugin 'https://github.com/jnurmine/Zenburn'
 Plugin 'https://github.com/altercation/vim-colors-solarized'
 
-" The following are examples of different formats supported.
-" " Keep Plugin commands between vundle#begin/end.
-" " plugin on GitHub repo
-" Plugin 'tpope/vim-fugitive'
-" " plugin from http://vim-scripts.org/vim/scripts.html
-" Plugin 'L9'
-" " Git plugin not hosted on GitHub
-" Plugin 'git://git.wincent.com/command-t.git'
-" " git repos on your local machine (i.e. when working on your own plugin)
-" Plugin 'file:///home/gmarik/path/to/plugin'
-" " The sparkup vim script is in a subdirectory of this repo called vim.
-" " Pass the path to set the runtimepath properly.
-" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" " Avoid a name conflict with L9
-" Plugin 'user/L9', {'name': 'newL9'}
-
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-" To ignore plugin indent changes, instead use:
-" "filetype plugin on
-" "
-" " Brief help
-" " :PluginList       - lists configured plugins
-" " :PluginInstall    - installs plugins; append `!` to update or just
-" :PluginUpdate
-" " :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" " :PluginClean      - confirms removal of unused plugins; append `!` to
-" auto-approve removal
-" "
-" " see :h vundle for more details or wiki for FAQ
-" " Put your non-Plugin stuff after this line
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just
 
 " ******************************************************************************
-" Basci setup
+" Basic setup.
 " ******************************************************************************
 set exrc            " Enable external config.
 set secure          " Don't allow all comands from extern config.
 set tabstop=4       " How big tab key is.
 set softtabstop=4   " After how many columns tab has to stop.
 set shiftwidth=4    " Autoidentation?
-set noexpandtab
+set expandtab		" Tab to spaces.
 set smartindent     " Auto-indent for a c-like
 set backspace=indent,eol,start " Make Backspace even in eol like situations.
 set linebreak
-
 set ignorecase      " Makes searching easier...
 set smartcase       " ...and smarter.
 set incsearch       " Search in-time.
 set hlsearch        " Highlight results
-
 set ruler           " Show column number.
 set hidden          " Allows easy switching between buffers.
-
-" set laststatus=2	" Show status bar (if no air-line installed).
-set laststatus=0
+set number          " Line numbers.
 
 syntax on
 syntax enable
-filetype plugin on
 
 " ******************************************************************************
 " " Aestetics (first line has to be first also for powerLine).
 " ******************************************************************************
 set t_Co=256        " Mostly for Zenburn, but can affect other things too.
 let g:solarized_termcolors=256 " If Slarized is used.
-set colorcolumn=81
+set colorcolumn=81  " Mark column 81.
 set background=dark
 colors zenburn
 "set background=light
 "colors solarized
-set showtabline=2   " Alway show tabs (w/o PL > buffers)
-set number          " Line numbers.
 
 " ******************************************************************************
 " Plugins configurations.
@@ -126,7 +92,7 @@ let g:airline_symbols.whitespace = 'Ξ'
 
 " *** Syntastic Config
 set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 " I have set almost all off, for faster working with big projects.
 let g:syntastic_always_populate_loc_list = 0
@@ -144,12 +110,15 @@ let g:clang_user_options='-I/usr/include/c++/4.8.2/ || exit 0'
 let g:clang_complete_copen=1
 let g:clang_hl_errors=1
 
-" *********************************************************
+" ******************************************************************************
 " Key bindings
+" ******************************************************************************
 nmap <c-s> :w<CR>
 imap <c-s> <Esc>:w<CR>a
-map <F10> :wqa<CR>
+vmap <c-s> <Esc>:w<CR>a
+nmap <F10> :wqa<CR>
 imap <F10> <Esc>:wqa<CR>
+vmap <F10> <Esc>:wqa<CR>
 map <F2> :NERDTree<CR>:copen 10<CR><C-w><C-w><C-w><C-w>
 map <F3> :Tagbar<CR>
 map <F5> :!clear && ./a.out<CR>
@@ -184,17 +153,20 @@ noremap 0 0k
 " Go to tag from tag file.
 map <C-\> :exec("tag ".expand("<cword>"))<CR>
 " Open .vimrc
-nmap <leader>v :tabedit $MYVIMRC<CR>
+nmap <leader>v :edit $MYVIMRC<CR>
 " Show whitespaces
 nmap <leader>l :set list!<CR>
 " Clear whitespaces
 nmap <leader>cw :%s/\s\+$//e<CR>
 
-" *********************************************************
+" ******************************************************************************
 " Others
+" ******************************************************************************
 
 "Source the vimrc file after saving it
 if has("autocmd")
 	autocmd bufwritepost .vimrc source $MYVIMRC
 endif
+
+" ******************************************************************************
 
