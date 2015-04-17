@@ -102,7 +102,7 @@ let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
 " *** Clang
-let g:clang_library_path='/usr/lib/llvm-3.5/lib'
+let g:clang_library_path='/usr/lib/x86_64-linux-gnu'
 " *** Clang config
 let g:clang_complete_auto = 1
 let g:clang_use_library = 1
