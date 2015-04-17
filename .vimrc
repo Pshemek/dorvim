@@ -158,6 +158,13 @@ nmap <leader>v :edit $MYVIMRC<CR>
 nmap <leader>l :set list!<CR>
 " Clear whitespaces
 nmap <leader>cw :%s/\s\+$//e<CR>
+" Show/hide line numbers.
+nmap <leader>n :set number!<CR>
+" Toggle paste mode.
+nmap <leader>p :set paste!<CR>
+" Toggle 81 columns mar.
+nmap <leader>8a :set colorcolumn=81<CR>
+nmap <leader>8d :set colorcolumn=0<CR>
 
 " ******************************************************************************
 " Others
