@@ -55,6 +55,7 @@ syntax enable
 " ******************************************************************************
 " " Aestetics (first line has to be first also for powerLine).
 " ******************************************************************************
+set term=xterm
 set t_Co=256        " Mostly for Zenburn, but can affect other things too.
 let g:solarized_termcolors=256 " If Slarized is used.
 set colorcolumn=81  " Mark column 81.
@@ -120,7 +121,8 @@ nmap <F10> :wqa<CR>
 imap <F10> <Esc>:wqa<CR>
 vmap <F10> <Esc>:wqa<CR>
 map <F2> :NERDTree<CR>:copen 10<CR><C-w><C-w><C-w><C-w>
-map <F3> :Tagbar<CR>
+map <F3> :NERDTreeClose<CR>:cclose<CR>
+map <F4> :Tagbar<CR>
 map <F5> :!clear && ./a.out<CR>
 map <F7> :w<CR>:make<CR>
 map <F9> :nohlsearch<CR>
