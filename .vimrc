@@ -22,6 +22,8 @@ Plugin 'https://github.com/tomtom/tlib_vim'
 Plugin 'https://github.com/marcweber/vim-addon-mw-utils'
 Plugin 'https://github.com/jnurmine/Zenburn'
 Plugin 'https://github.com/altercation/vim-colors-solarized'
+Plugin 'https://github.com/airblade/vim-gitgutter'
+Plugin 'https://github.com/tpope/vim-fugitive'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -40,17 +42,40 @@ set shiftwidth=4    " Autoidentation?
 set expandtab		" Tab to spaces.
 set smartindent     " Auto-indent for a c-like
 set backspace=indent,eol,start " Make Backspace even in eol like situations.
+set copyindent      " Take indentation from last line.
 set linebreak
 set ignorecase      " Makes searching easier...
 set smartcase       " ...and smarter.
 set incsearch       " Search in-time.
-set hlsearch        " Highlight results
+set hlsearch        " Highlight results.
 set ruler           " Show column number.
 set hidden          " Allows easy switching between buffers.
 set number          " Line numbers.
+set nobackup
+set noswapfile
+set foldenable          " Enable folding.
+set foldmethod=syntax   " Enable folding based on syntax.
+set foldlevelstart=99   " Start out with everything unfolded.
 
 syntax on
 syntax enable
+
+" Switch from block-cursor to vertical-line-cursor when going into/out of
+" insert mode
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+
+" Split previously opened file ('#') in a split window
+nnoremap <leader>sl :execute "rightbelow vsplit" bufname('#')<cr>
+
+" Quote current selection
+" TODO: This only works for selections that are created "forwardly"
+vnoremap <leader>" <esc>a"<esc>gvo<esc>i"<esc>gvo<esc>ll
+vnoremap <leader>' <esc>a'<esc>gvo<esc>i'<esc>gvo<esc>ll
+
+" Pull word under cursor into LHS of a substitute (for quick search and
+" replace)
+nnoremap <leader>r :%s#\<<C-r>=expand("<cword>")<CR>\>#
 
 " ******************************************************************************
 " " Aestetics (first line has to be first also for powerLine).
@@ -167,6 +192,25 @@ nmap <leader>p :set paste!<CR>
 " Toggle 81 columns mar.
 nmap <leader>8a :set colorcolumn=81<CR>
 nmap <leader>8d :set colorcolumn=0<CR>
+
+nnoremap <leader>fa :call cscope#findInteractive(expand('<cword>'))<CR>
+nnoremap <leader>l :call ToggleLocationList()<CR>
+" s: Find this C symbol
+nnoremap  <leader>fs :call cscope#find('s', expand('<cword>'))<CR>
+" g: Find this definition
+nnoremap  <leader>fg :call cscope#find('g', expand('<cword>'))<CR>
+" d: Find functions called by this function
+nnoremap  <leader>fd :call cscope#find('d', expand('<cword>'))<CR>
+" c: Find functions calling this function
+nnoremap  <leader>fc :call cscope#find('c', expand('<cword>'))<CR>
+" t: Find this text string
+nnoremap  <leader>ft :call cscope#find('t', expand('<cword>'))<CR>
+" e: Find this egrep pattern
+nnoremap  <leader>fe :call cscope#find('e', expand('<cword>'))<CR>
+" f: Find this file
+nnoremap  <leader>ff :call cscope#find('f', expand('<cword>'))<CR>
+" i: Find files #including this file
+nnoremap  <leader>fi :call cscope#find('i', expand('<cword>'))<CR>
 
 " ******************************************************************************
 " Others
