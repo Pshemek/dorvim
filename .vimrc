@@ -8,6 +8,7 @@ filetype off                  " required
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
+Plugin 'https://github.com/gmarik/Vundle.vim'
 Plugin 'https://github.com/bling/vim-airline'
 Plugin 'https://github.com/vim-scripts/a.vim'
 Plugin 'https://github.com/Rip-Rip/clang_complete'
@@ -83,7 +84,7 @@ nnoremap <leader>r :%s#\<<C-r>=expand("<cword>")<CR>\>#
 set term=xterm
 set t_Co=256        " Mostly for Zenburn, but can affect other things too.
 let g:solarized_termcolors=256 " If Slarized is used.
-set colorcolumn=81  " Mark column 81.
+"set colorcolumn=81  " Mark column 81.
 set background=dark
 colors zenburn
 "set background=light
@@ -193,24 +194,10 @@ nmap <leader>p :set paste!<CR>
 nmap <leader>8a :set colorcolumn=81<CR>
 nmap <leader>8d :set colorcolumn=0<CR>
 
-nnoremap <leader>fa :call cscope#findInteractive(expand('<cword>'))<CR>
-nnoremap <leader>l :call ToggleLocationList()<CR>
-" s: Find this C symbol
-nnoremap  <leader>fs :call cscope#find('s', expand('<cword>'))<CR>
-" g: Find this definition
-nnoremap  <leader>fg :call cscope#find('g', expand('<cword>'))<CR>
-" d: Find functions called by this function
-nnoremap  <leader>fd :call cscope#find('d', expand('<cword>'))<CR>
-" c: Find functions calling this function
-nnoremap  <leader>fc :call cscope#find('c', expand('<cword>'))<CR>
-" t: Find this text string
-nnoremap  <leader>ft :call cscope#find('t', expand('<cword>'))<CR>
-" e: Find this egrep pattern
-nnoremap  <leader>fe :call cscope#find('e', expand('<cword>'))<CR>
-" f: Find this file
-nnoremap  <leader>ff :call cscope#find('f', expand('<cword>'))<CR>
-" i: Find files #including this file
-nnoremap  <leader>fi :call cscope#find('i', expand('<cword>'))<CR>
+" Searching tool.
+" Netxt & previous element.
+noremap <leader>[ :cp<CR>
+noremap <leader>] :cn<CR>
 
 " ******************************************************************************
 " Others
