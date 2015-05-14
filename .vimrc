@@ -25,6 +25,7 @@ Plugin 'https://github.com/jnurmine/Zenburn'
 Plugin 'https://github.com/altercation/vim-colors-solarized'
 Plugin 'https://github.com/airblade/vim-gitgutter'
 Plugin 'https://github.com/tpope/vim-fugitive'
+Plugin 'https://github.com/MattesGroeger/vim-bookmarks'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -77,6 +78,12 @@ vnoremap <leader>' <esc>a'<esc>gvo<esc>i'<esc>gvo<esc>ll
 " Pull word under cursor into LHS of a substitute (for quick search and
 " replace)
 nnoremap <leader>r :%s#\<<C-r>=expand("<cword>")<CR>\>#
+
+" Exclude quickfix window from buffer cycling
+augroup QFix
+    autocmd!
+    autocmd FileType qf setlocal nobuflisted
+augroup END
 
 " ******************************************************************************
 " " Aestetics (first line has to be first also for powerLine).
@@ -137,6 +144,10 @@ let g:clang_user_options='-I/usr/include/c++/4.8.2/ || exit 0'
 let g:clang_complete_copen=1
 let g:clang_hl_errors=1
 
+" *** Bookmarks
+let g:bookmark_save_per_working_dir = 1
+let g:bookmark_aut_save = 1
+
 " ******************************************************************************
 " Key bindings
 " ******************************************************************************
@@ -180,6 +191,8 @@ noremap $ g$
 noremap 0 0k
 " Go to tag from tag file.
 map <C-\> :exec("tag ".expand("<cword>"))<CR>
+" Find word in cpp, h and c files.
+map <C-F> :execute "vimgrep /" . expand("<cword>") . "/ **/*.cpp **/*.h **/*.c" <Bar> cw<CR>
 " Open .vimrc
 nmap <leader>v :edit $MYVIMRC<CR>
 " Show whitespaces
@@ -193,6 +206,10 @@ nmap <leader>p :set paste!<CR>
 " Toggle 81 columns mar.
 nmap <leader>8a :set colorcolumn=81<CR>
 nmap <leader>8d :set colorcolumn=0<CR>
+" Open Files in NERDTree.
+map <leader>f :NERDTreeFind<CR>
+" Save bookmarks
+map ms :BookmarkSave .vim-bookmarks<CR>
 
 " Searching tool.
 " Netxt & previous element.
