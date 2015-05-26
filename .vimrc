@@ -26,6 +26,7 @@ Plugin 'https://github.com/altercation/vim-colors-solarized'
 Plugin 'https://github.com/airblade/vim-gitgutter'
 Plugin 'https://github.com/tpope/vim-fugitive'
 Plugin 'https://github.com/MattesGroeger/vim-bookmarks'
+Plugin 'https://github.com/Chiel92/vim-autoformat'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -215,6 +216,11 @@ map ms :BookmarkSave .vim-bookmarks<CR>
 " Netxt & previous element.
 noremap <leader>[ :cp<CR>
 noremap <leader>] :cn<CR>
+" Copy-paste
+vmap <C-c> "+y
+nmap <C-c> "+yiw
+map <leader>p "+p
+
 
 " ******************************************************************************
 " Others
