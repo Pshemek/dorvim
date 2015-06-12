@@ -27,6 +27,7 @@ Plugin 'https://github.com/airblade/vim-gitgutter'
 Plugin 'https://github.com/tpope/vim-fugitive'
 Plugin 'https://github.com/MattesGroeger/vim-bookmarks'
 Plugin 'https://github.com/Chiel92/vim-autoformat'
+Plugin 'https://github.com/schickling/vim-bufonly'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -86,6 +87,9 @@ augroup QFix
     autocmd FileType qf setlocal nobuflisted
 augroup END
 
+" Use mouse
+set mouse=a
+
 " ******************************************************************************
 " " Aestetics (first line has to be first also for powerLine).
 " ******************************************************************************
@@ -93,10 +97,10 @@ set term=xterm
 set t_Co=256        " Mostly for Zenburn, but can affect other things too.
 let g:solarized_termcolors=256 " If Slarized is used.
 "set colorcolumn=81  " Mark column 81.
-set background=dark
-colors zenburn
-"set background=light
-"colors solarized
+"set background=dark
+"colors zenburn
+set background=light
+colors solarized
 
 " ******************************************************************************
 " Plugins configurations.
@@ -220,6 +224,8 @@ noremap <leader>] :cn<CR>
 vmap <C-c> "+y
 nmap <C-c> "+yiw
 map <leader>p "+p
+" Create Tags - required exuberant-ctags
+nmap <leader>tag :!ctags -R --sort=1 --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f tags .<CR>
 
 
 " ******************************************************************************
