@@ -17,7 +17,7 @@ Plugin 'https://github.com/Raimondi/delimitMate'
 Plugin 'https://github.com/xaizek/vim-inccomplete'
 Plugin 'https://github.com/scrooloose/nerdtree'
 Plugin 'https://github.com/garbas/vim-snipmate'
-Plugin 'https://github.com/scrooloose/syntastic'
+" Plugin 'https://github.com/scrooloose/syntastic'
 Plugin 'https://github.com/majutsushi/tagbar'
 Plugin 'https://github.com/tomtom/tlib_vim'
 Plugin 'https://github.com/marcweber/vim-addon-mw-utils'
@@ -97,10 +97,10 @@ set term=xterm
 set t_Co=256        " Mostly for Zenburn, but can affect other things too.
 let g:solarized_termcolors=256 " If Slarized is used.
 "set colorcolumn=81  " Mark column 81.
-"set background=dark
-"colors zenburn
-set background=light
-colors solarized
+set background=dark
+colors zenburn
+"set background=light
+"colors solarized
 
 " ******************************************************************************
 " Plugins configurations.
@@ -134,10 +134,10 @@ set statusline+=%#warningmsg#
 "set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 " I have set almost all off, for faster working with big projects.
-let g:syntastic_always_populate_loc_list = 0
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 0
+" let g:syntastic_check_on_open = 0
+" let g:syntastic_check_on_wq = 0
 
 " *** Clang
 let g:clang_library_path='/usr/lib/x86_64-linux-gnu'
@@ -197,7 +197,7 @@ noremap 0 0k
 " Go to tag from tag file.
 map <C-\> :exec("tag ".expand("<cword>"))<CR>
 " Find word in cpp, h and c files.
-map <C-F> :execute "vimgrep /" . expand("<cword>") . "/ **/*.cpp **/*.h **/*.c" <Bar> cw<CR>
+map <C-F> :execute "vimgrep /" . expand("<cword>") . "/ **/*.cpp **/*.h **/*.c" <Bar> cw
 " Open .vimrc
 nmap <leader>v :edit $MYVIMRC<CR>
 " Show whitespaces
