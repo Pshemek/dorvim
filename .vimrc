@@ -10,6 +10,8 @@ call vundle#begin()
 
 Plugin 'https://github.com/gmarik/Vundle.vim'
 Plugin 'https://github.com/bling/vim-airline'
+Plugin 'https://github.com/vim-airline/vim-airline-themes'
+"Plugin 'https://github.com/Lokaltog/vim-powerline'
 Plugin 'https://github.com/vim-scripts/a.vim'
 Plugin 'https://github.com/Rip-Rip/clang_complete'
 Plugin 'https://github.com/kien/ctrlp.vim'
@@ -28,6 +30,7 @@ Plugin 'https://github.com/tpope/vim-fugitive'
 Plugin 'https://github.com/MattesGroeger/vim-bookmarks'
 Plugin 'https://github.com/Chiel92/vim-autoformat'
 Plugin 'https://github.com/schickling/vim-bufonly'
+Plugin 'https://github.com/vim-scripts/dbext.vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -99,6 +102,7 @@ let g:solarized_termcolors=256 " If Slarized is used.
 "set colorcolumn=81  " Mark column 81.
 set background=dark
 colors zenburn
+hi Normal ctermbg=none
 "set background=light
 "colors solarized
 
@@ -109,25 +113,29 @@ colors zenburn
 " If only NerdTree left open, close it.
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
+" *** Powerline
+" let g:Powerline_symbols = 'fancy'
 " *** Airline / in case of PowerLine problems.
+let g:airline_theme = 'dark'
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 " unicode symbols
-let g:airline_left_sep = '»'
-let g:airline_left_sep = '▶'
-let g:airline_right_sep = '«'
-let g:airline_right_sep = '◀'
-let g:airline_symbols.linenr = '␊'
-let g:airline_symbols.linenr = '␤'
-"let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.paste = 'ρ'
-"let g:airline_symbols.paste = 'Þ'
-"let g:airline_symbols.paste = '∥'
-let g:airline_symbols.whitespace = 'Ξ'
+"let g:airline_left_sep = '»'
+"let g:airline_left_sep = '▶'
+"let g:airline_right_sep = '«'
+"let g:airline_right_sep = '◀'
+""let g:airline_symbols.linenr = '␊'
+"let g:airline_symbols.linenr = '␤'
+""let g:airline_symbols.linenr = '¶'
+"let g:airline_symbols.branch = '⎇'
+"let g:airline_symbols.paste = 'ρ'
+""let g:airline_symbols.paste = 'Þ'
+""let g:airline_symbols.paste = '∥'
+"let g:airline_symbols.whitespace = 'Ξ'
+let g:airline_powerline_fonts = 1
 
 " *** Syntastic Config
 set statusline+=%#warningmsg#
@@ -153,12 +161,17 @@ let g:clang_hl_errors=1
 let g:bookmark_save_per_working_dir = 1
 let g:bookmark_aut_save = 1
 
+" *** dbext " Don't want to public password, dummy!
+"let g:dbext_default_profile_prism_local = 'type=MYSQL:user=om2:passwd=XXXXX:dbname=Traffic2'
+"let g:dbext_default_profile = 'prism_local'
+
+
 " ******************************************************************************
 " Key bindings
 " ******************************************************************************
-nmap <c-s> :w<CR>
-imap <c-s> <Esc>:w<CR>a
-vmap <c-s> <Esc>:w<CR>a
+"nmap <c-s> :w<CR>
+"imap <c-s> <Esc>:w<CR>a
+"vmap <c-s> <Esc>:w<CR>a
 nmap <F10> :wqa<CR>
 imap <F10> <Esc>:wqa<CR>
 vmap <F10> <Esc>:wqa<CR>
@@ -173,7 +186,7 @@ nnoremap <C-l> :bnext<CR>
 nnoremap <C-h> :bprevious<CR>
 nnoremap <C-x> :Bclose<CR>
 " Easier searching open buffers.
-nmap ; :CtrlPBuffer<CR>
+" nmap ; :CtrlPBuffer<CR>
 " Multiple windows navigation
 noremap <C-Left> :wincmd h<CR>
 noremap <C-Right> :wincmd l<CR>
@@ -197,7 +210,7 @@ noremap 0 0k
 " Go to tag from tag file.
 map <C-\> :exec("tag ".expand("<cword>"))<CR>
 " Find word in cpp, h and c files.
-map <C-F> :execute "vimgrep /" . expand("<cword>") . "/ **/*.cpp **/*.h **/*.c" <Bar> cw
+map <C-F> :execute "vimgrep /" . expand("<cword>") . "/ **/*.cpp **/*.h **/*.c **/*.cc" <Bar>
 " Open .vimrc
 nmap <leader>v :edit $MYVIMRC<CR>
 " Show whitespaces
