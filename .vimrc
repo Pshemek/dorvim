@@ -1,3 +1,5 @@
+" Fix to some error (with GitGutter asaik)
+set shell=/bin/bash
 " ******************************************************************************
 " First install and config all plugins. VUNDLE
 " ******************************************************************************
@@ -31,6 +33,13 @@ Plugin 'https://github.com/MattesGroeger/vim-bookmarks'
 Plugin 'https://github.com/Chiel92/vim-autoformat'
 Plugin 'https://github.com/schickling/vim-bufonly'
 Plugin 'https://github.com/vim-scripts/dbext.vim'
+" Conque at this moment has an issue with this repo, might need to get from
+" the other source (official one).
+Plugin 'https://github.com/vim-scripts/Conque-Shell'
+Plugin 'https://github.com/vim-ctrlspace/vim-ctrlspace'
+Plugin 'https://github.com/tomasr/molokai'
+Plugin 'https://github.com/goldfeld/vim-seek'
+Plugin 'https://github.com/easymotion/vim-easymotion'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -58,11 +67,19 @@ set hlsearch        " Highlight results.
 set ruler           " Show column number.
 set hidden          " Allows easy switching between buffers.
 set number          " Line numbers.
-set nobackup
+" set nobackup
 set noswapfile
 set foldenable          " Enable folding.
 set foldmethod=syntax   " Enable folding based on syntax.
 set foldlevelstart=99   " Start out with everything unfolded.
+set scrolloff=3
+set cursorline
+set ttyfast
+set fillchars=vert:│
+
+" Show clock when there is no statusline
+set ruler
+set rulerformat=%55(%{strftime('%a\ %b\ %e\ %I:%M\ %p')}\ %5l,%-6(%c%V%)\ %P%)
 
 syntax on
 syntax enable
@@ -92,6 +109,7 @@ augroup END
 
 " Use mouse
 set mouse=a
+"set mouse=
 
 " ******************************************************************************
 " " Aestetics (first line has to be first also for powerLine).
@@ -102,7 +120,10 @@ let g:solarized_termcolors=256 " If Slarized is used.
 "set colorcolumn=81  " Mark column 81.
 set background=dark
 colors zenburn
+" Transparetn bg
 hi Normal ctermbg=none
+" Easy to see visual selection
+hi Visual term=reverse cterm=reverse guibg=Grey 
 "set background=light
 "colors solarized
 
@@ -136,6 +157,8 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 ""let g:airline_symbols.paste = '∥'
 "let g:airline_symbols.whitespace = 'Ξ'
 let g:airline_powerline_fonts = 1
+" Add clock
+let g:airline_section_y = airline#section#create(['ffenc','%{strftime("%H:%M")}'])
 
 " *** Syntastic Config
 set statusline+=%#warningmsg#
@@ -162,9 +185,11 @@ let g:bookmark_save_per_working_dir = 1
 let g:bookmark_aut_save = 1
 
 " *** dbext " Don't want to public password, dummy!
-"let g:dbext_default_profile_prism_local = 'type=MYSQL:user=om2:passwd=XXXXX:dbname=Traffic2'
-"let g:dbext_default_profile = 'prism_local'
+let g:dbext_default_profile = 'prism_local'
 
+" *** GitGutter
+" As there was some error when starting Vim
+let g:gitgutter_realtime = 0 
 
 " ******************************************************************************
 " Key bindings
@@ -227,7 +252,12 @@ nmap <leader>8d :set colorcolumn=0<CR>
 " Open Files in NERDTree.
 map <leader>f :NERDTreeFind<CR>
 " Save bookmarks
-map ms :BookmarkSave .vim-bookmarks<CR>
+map ms :BookmarkSave .vim-bookmarks<CR> 
+" Faster scrolling
+nnoremap <C-E> 3<C-E>
+nnoremap <C-Y> 3<C-Y>
+" Show status line
+map <leader>sl :set laststatus=2<CR>
 
 " Searching tool.
 " Netxt & previous element.
@@ -240,6 +270,17 @@ map <leader>p "+p
 " Create Tags - required exuberant-ctags
 nmap <leader>tag :!ctags -R --sort=1 --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f tags .<CR>
 
+" Lets try it the 'right' way
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+" Experimental
+inoremap jj <ESC>
 
 " ******************************************************************************
 " Others
