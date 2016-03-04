@@ -178,19 +178,19 @@ map <F5> :!clear && ./a.out<CR>
 map <F7> :w<CR>:make<CR>
 map <F9> :nohlsearch<CR>
 " Buffers navigation
-nnoremap <C-l> :bnext<CR>
-nnoremap <C-h> :bprevious<CR>
+nnoremap <C-b> :CtrlSpaceGoUp<CR>
+nnoremap <C-o> :CtrlSpaceGoDown<CR>
 nnoremap <C-x> :Bclose<CR>
 " Moving lines feature
 " Normal mode
-nnoremap <C-j> :m .+1<CR>==
-nnoremap <C-k> :m .-2<CR>==
+nnoremap <C-n> :m .+1<CR>==
+nnoremap <C-m> :m .-2<CR>==
 " Insert mode
-inoremap <C-j> <ESC>:m .+1<CR>==gi
-inoremap <C-k> <ESC>:m .-2<CR>==gi
+inoremap <C-n> <ESC>:m .+1<CR>==gi
+inoremap <C-m> <ESC>:m .-2<CR>==gi
 " Visual mode
-vnoremap <C-j> :m '>+1<CR>gv=gv
-vnoremap <C-k> :m '<-2<CR>gv=gv
+vnoremap <C-n> :m '>+1<CR>gv=gv
+vnoremap <C-m> :m '<-2<CR>gv=gv
 " Navigation in wrap mode.
 noremap j gj
 noremap k gk
@@ -247,7 +247,10 @@ inoremap <right> <nop>
 " Reload .vimrc
 map <leader>vim :source $MYVIMRC<CR>
 
-map <leader>t :wincmd j<CR>
+map <C-l> :wincmd l<CR>
+map <C-h> :wincmd h<CR>
+map <C-j> :wincmd j<CR>
+map <C-k> :wincmd k<CR>
 
 " ******************************************************************************
 " Others
