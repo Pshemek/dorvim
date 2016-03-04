@@ -38,8 +38,9 @@ Plugin 'https://github.com/vim-scripts/dbext.vim'
 Plugin 'https://github.com/vim-scripts/Conque-Shell'
 Plugin 'https://github.com/vim-ctrlspace/vim-ctrlspace'
 Plugin 'https://github.com/tomasr/molokai'
-Plugin 'https://github.com/goldfeld/vim-seek'
-Plugin 'https://github.com/easymotion/vim-easymotion'
+" Those two helps navigate, and are kinda good, but for now I do not use them.
+"Plugin 'https://github.com/goldfeld/vim-seek'
+"Plugin 'https://github.com/easymotion/vim-easymotion'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -76,6 +77,7 @@ set scrolloff=3
 set cursorline
 set ttyfast
 set fillchars=vert:│
+set relativenumber        " Show relative numbers of lines
 
 " Show clock when there is no statusline
 set ruler
@@ -84,42 +86,10 @@ set rulerformat=%55(%{strftime('%a\ %b\ %e\ %I:%M\ %p')}\ %5l,%-6(%c%V%)\ %P%)
 syntax on
 syntax enable
 
-" Switch from block-cursor to vertical-line-cursor when going into/out of
-" insert mode
-let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-
-" Split previously opened file ('#') in a split window
-nnoremap <leader>sl :execute "rightbelow vsplit" bufname('#')<cr>
-
-" Quote current selection
-" TODO: This only works for selections that are created "forwardly"
-vnoremap <leader>" <esc>a"<esc>gvo<esc>i"<esc>gvo<esc>ll
-vnoremap <leader>' <esc>a'<esc>gvo<esc>i'<esc>gvo<esc>ll
-
-" Pull word under cursor into LHS of a substitute (for quick search and
-" replace)
-nnoremap <leader>r :%s#\<<C-r>=expand("<cword>")<CR>\>#
-
-" Exclude quickfix window from buffer cycling
-augroup QFix
-    autocmd!
-    autocmd FileType qf setlocal nobuflisted
-augroup END
-
-" Use mouse
-set mouse=a
-"set mouse=
-
-" ******************************************************************************
-" " Aestetics (first line has to be first also for powerLine).
-" ******************************************************************************
-set term=xterm
-set t_Co=256        " Mostly for Zenburn, but can affect other things too.
-let g:solarized_termcolors=256 " If Slarized is used.
 "set colorcolumn=81  " Mark column 81.
 set background=dark
-colors zenburn
+colors molokai
+"colors zenburn
 " Transparetn bg
 hi Normal ctermbg=none
 " Easy to see visual selection
@@ -185,8 +155,9 @@ let g:bookmark_save_per_working_dir = 1
 let g:bookmark_aut_save = 1
 
 " *** dbext " Don't want to public password, dummy!
-let g:dbext_default_profile = 'prism_local'
-
+if filereadable("dbSettings.vim")
+    source dbSettings.vim
+endif
 " *** GitGutter
 " As there was some error when starting Vim
 let g:gitgutter_realtime = 0 
@@ -210,13 +181,6 @@ map <F9> :nohlsearch<CR>
 nnoremap <C-l> :bnext<CR>
 nnoremap <C-h> :bprevious<CR>
 nnoremap <C-x> :Bclose<CR>
-" Easier searching open buffers.
-" nmap ; :CtrlPBuffer<CR>
-" Multiple windows navigation
-noremap <C-Left> :wincmd h<CR>
-noremap <C-Right> :wincmd l<CR>
-noremap <C-Up> :wincmd k<CR>
-noremap <C-Down> :wincmd j<CR>
 " Moving lines feature
 " Normal mode
 nnoremap <C-j> :m .+1<CR>==
@@ -232,8 +196,8 @@ noremap j gj
 noremap k gk
 noremap $ g$
 noremap 0 0k
-" Go to tag from tag file.
-map <C-\> :exec("tag ".expand("<cword>"))<CR>
+" Go to tag from tag file. // it seems that def is c ]
+" map <C-\> :exec("tag ".expand("<cword>"))<CR>
 " Find word in cpp, h and c files.
 map <C-F> :execute "vimgrep /" . expand("<cword>") . "/ **/*.cpp **/*.h **/*.c **/*.cc" <Bar>
 " Open .vimrc
@@ -264,8 +228,8 @@ map <leader>sl :set laststatus=2<CR>
 noremap <leader>[ :cp<CR>
 noremap <leader>] :cn<CR>
 " Copy-paste
-vmap <C-c> "+y
-nmap <C-c> "+yiw
+vmap <leader>c "+y
+nmap <leader>c "+yiw
 map <leader>p "+p
 " Create Tags - required exuberant-ctags
 nmap <leader>tag :!ctags -R --sort=1 --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f tags .<CR>
@@ -279,17 +243,20 @@ inoremap <up> <nop>
 inoremap <down> <nop>
 inoremap <left> <nop>
 inoremap <right> <nop>
-" Experimental
-inoremap jj <ESC>
+
+" Reload .vimrc
+map <leader>vim :source $MYVIMRC<CR>
+
+map <leader>t :wincmd j<CR>
 
 " ******************************************************************************
 " Others
 " ******************************************************************************
 
 "Source the vimrc file after saving it
-if has("autocmd")
-	autocmd bufwritepost .vimrc source $MYVIMRC
-endif
+"if has("autocmd")
+"	autocmd bufwritepost .vimrc source $MYVIMRC
+"endif
 
 " ******************************************************************************
 
