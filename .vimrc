@@ -114,18 +114,14 @@ endif
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 " unicode symbols
-"let g:airline_left_sep = '»'
-"let g:airline_left_sep = '▶'
-"let g:airline_right_sep = '«'
-"let g:airline_right_sep = '◀'
-""let g:airline_symbols.linenr = '␊'
-"let g:airline_symbols.linenr = '␤'
-""let g:airline_symbols.linenr = '¶'
-"let g:airline_symbols.branch = '⎇'
-"let g:airline_symbols.paste = 'ρ'
-""let g:airline_symbols.paste = 'Þ'
-""let g:airline_symbols.paste = '∥'
-"let g:airline_symbols.whitespace = 'Ξ'
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.whitespace = 'Ξ'
 let g:airline_powerline_fonts = 1
 " Add clock
 let g:airline_section_y = airline#section#create(['ffenc','%{strftime("%H:%M")}'])
@@ -141,7 +137,7 @@ set statusline+=%*
 " let g:syntastic_check_on_wq = 0
 
 " *** Clang
-let g:clang_library_path='/usr/lib/x86_64-linux-gnu'
+let g:clang_library_path='/usr/lib/llvm-3.5/lib/'
 " *** Clang config
 let g:clang_complete_auto = 1
 let g:clang_use_library = 1
@@ -158,6 +154,7 @@ let g:bookmark_aut_save = 1
 if filereadable("dbSettings.vim")
     source dbSettings.vim
 endif
+
 " *** GitGutter
 " As there was some error when starting Vim
 let g:gitgutter_realtime = 0 
@@ -165,9 +162,13 @@ let g:gitgutter_realtime = 0
 " ******************************************************************************
 " Key bindings
 " ******************************************************************************
-"nmap <c-s> :w<CR>
-"imap <c-s> <Esc>:w<CR>a
-"vmap <c-s> <Esc>:w<CR>a
+" *** Commont files operatoins
+nmap <C-s> :w<CR>
+imap <C-s> <C-o>:w<CR>
+vmap <C-s> <Esc>:w<CR> 
+map <leader>n :enew<CR>
+
+" *** F-keys mapping (to be abandond in future)
 nmap <F10> :wqa<CR>
 imap <F10> <Esc>:wqa<CR>
 vmap <F10> <Esc>:wqa<CR>
@@ -177,62 +178,51 @@ map <F4> :Tagbar<CR>
 map <F5> :!clear && ./a.out<CR>
 map <F7> :w<CR>:make<CR>
 map <F9> :nohlsearch<CR>
-" Buffers navigation
-nnoremap <leader>j :CtrlSpaceGoUp<CR>
-nnoremap <leader>k :CtrlSpaceGoDown<CR>
-nnoremap <C-x> :Bclose<CR>
-" Moving lines feature
+
+" Problem with mapping - no free, suitable keys left!
+" *** Moving lines feature
 " Normal mode
-nnoremap <C-n> :m .+1<CR>==
-nnoremap <C-b> :m .-2<CR>==
+"nnoremap <C-n> :m .+1<CR>==
+"nnoremap <C-b> :m .-2<CR>==
 " Insert mode
-inoremap <C-n> <ESC>:m .+1<CR>==gi
-inoremap <C-b> <ESC>:m .-2<CR>==gi
+"inoremap <C-n> <ESC>:m .+1<CR>==gi
+"inoremap <C-b> <ESC>:m .-2<CR>==gi
 " Visual mode
-vnoremap <C-n> :m '>+1<CR>gv=gv
-vnoremap <C-b> :m '<-2<CR>gv=gv
-" Navigation in wrap mode.
-noremap j gj
-noremap k gk
-noremap $ g$
-noremap 0 0k
-" Go to tag from tag file. // it seems that def is c ]
-" map <C-\> :exec("tag ".expand("<cword>"))<CR>
-" Find word in cpp, h and c files.
-map <C-F> :execute "vimgrep /" . expand("<cword>") . "/ **/*.cpp **/*.h **/*.c **/*.cc" <Bar>
-" Open .vimrc
-nmap <leader>v :edit $MYVIMRC<CR>
+"vnoremap <C-n> :m '>+1<CR>gv=gv
+"vnoremap <C-b> :m '<-2<CR>gv=gv
+
+" *** Apparance 
 " Show whitespaces
 nmap <leader>l :set list!<CR>
 " Clear whitespaces
 nmap <leader>cw :%s/\s\+$//e<CR>
-" Show/hide line numbers.
-nmap <leader>n :set number!<CR>
-" Toggle paste mode.
-nmap <leader>p :set paste!<CR>
 " Toggle 81 columns mar.
 nmap <leader>8a :set colorcolumn=81<CR>
 nmap <leader>8d :set colorcolumn=0<CR>
-" Open Files in NERDTree.
-map <leader>f :NERDTreeFind<CR>
-" Save bookmarks
-map ms :BookmarkSave .vim-bookmarks<CR> 
-" Faster scrolling
-nnoremap <C-E> 3<C-E>
-nnoremap <C-Y> 3<C-Y>
 " Show status line
 map <leader>sl :set laststatus=2<CR>
 
-" Searching tool.
+" *** Searching tools
 " Netxt & previous element.
 noremap <leader>[ :cp<CR>
 noremap <leader>] :cn<CR>
-" Copy-paste
-vmap <leader>c "+y
-nmap <leader>c "+yiw
-map <leader>p "+p
+" Open Files in NERDTree.
+map <leader>f :NERDTreeFind<CR>
+" Find word in cpp, h and c files.
+map <C-F> :execute "vimgrep /" . expand("<cword>") . "/ **/*.cpp **/*.h **/*.c **/*.cc" <Bar>
 " Create Tags - required exuberant-ctags
 nmap <leader>tag :!ctags -R --sort=1 --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f tags .<CR>
+" Go to tag from tag file.  " Not sure if c-] does the same (ueses vim tag engine?)
+map <C-\> :exec("tag ".expand("<cword>"))<CR>
+" Save bookmarks
+map ms :BookmarkSave .vim-bookmarks<CR> 
+" No highlight search results
+map <leader>? :nohlsearch<CR>
+
+" *** Copy-paste
+vmap <C-c> "+y
+nmap <C-c> "+yiw
+map <leader>p "+p
 
 " Lets try it the 'right' way
 nnoremap <up> <nop>
@@ -244,22 +234,26 @@ inoremap <down> <nop>
 inoremap <left> <nop>
 inoremap <right> <nop>
 
-" Reload .vimrc
-map <leader>vim :source $MYVIMRC<CR>
-
+" *** Navigation
+" Windows navigation
 map <C-l> :wincmd l<CR>
 map <C-h> :wincmd h<CR>
 map <C-j> :wincmd j<CR>
 map <C-k> :wincmd k<CR>
+" Buffers navigation
+nnoremap <leader>j :CtrlSpaceGoUp<CR>
+nnoremap <leader>k :CtrlSpaceGoDown<CR>
+nnoremap <C-x> :Bclose<CR>
+" Faster scrolling
+nnoremap <C-E> 3<C-E>
+nnoremap <C-Y> 3<C-Y>
+" Navigation in wrap mode.
+noremap j gj
+noremap k gk
+noremap $ g$
+noremap 0 0k
 
-" ******************************************************************************
-" Others
-" ******************************************************************************
-
-"Source the vimrc file after saving it
-"if has("autocmd")
-"	autocmd bufwritepost .vimrc source $MYVIMRC
-"endif
-
-" ******************************************************************************
+" *** Update .vimrc
+nmap <leader>v :edit $MYVIMRC<CR>
+map <leader>vim :source $MYVIMRC<CR>
 
