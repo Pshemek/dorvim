@@ -178,19 +178,19 @@ map <F5> :!clear && ./a.out<CR>
 map <F7> :w<CR>:make<CR>
 map <F9> :nohlsearch<CR>
 " Buffers navigation
-nnoremap <C-b> :CtrlSpaceGoUp<CR>
-nnoremap <C-o> :CtrlSpaceGoDown<CR>
+nnoremap <leader>j :CtrlSpaceGoUp<CR>
+nnoremap <leader>k :CtrlSpaceGoDown<CR>
 nnoremap <C-x> :Bclose<CR>
 " Moving lines feature
 " Normal mode
 nnoremap <C-n> :m .+1<CR>==
-nnoremap <C-m> :m .-2<CR>==
+nnoremap <C-b> :m .-2<CR>==
 " Insert mode
 inoremap <C-n> <ESC>:m .+1<CR>==gi
-inoremap <C-m> <ESC>:m .-2<CR>==gi
+inoremap <C-b> <ESC>:m .-2<CR>==gi
 " Visual mode
 vnoremap <C-n> :m '>+1<CR>gv=gv
-vnoremap <C-m> :m '<-2<CR>gv=gv
+vnoremap <C-b> :m '<-2<CR>gv=gv
 " Navigation in wrap mode.
 noremap j gj
 noremap k gk
