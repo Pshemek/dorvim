@@ -1,4 +1,4 @@
-" Fix to some error (with GitGutter asaik)
+" Fix to some error (with GitGutter asaik).
 set shell=/bin/bash
 " ******************************************************************************
 " First install and config all plugins. VUNDLE
@@ -96,6 +96,9 @@ hi Normal ctermbg=none
 hi Visual term=reverse cterm=reverse guibg=Grey 
 "set background=light
 "colors solarized
+
+" Prevent VIM from clearing clipboard after exiting the VIM.
+autocmd VimLeave * call system("xsel -ib", getreg('+'))
 
 " ******************************************************************************
 " Plugins configurations.
@@ -201,6 +204,8 @@ nmap <leader>8a :set colorcolumn=81<CR>
 nmap <leader>8d :set colorcolumn=0<CR>
 " Show status line
 map <leader>sl :set laststatus=2<CR>
+" Toggle NerdTree
+nmap <leader>tt :NERDTreeToggle<CR>
 
 " *** Searching tools
 " Netxt & previous element.
