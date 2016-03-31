@@ -144,19 +144,25 @@ let g:clang_library_path='/usr/lib/llvm-3.5/lib/'
 " *** Clang config
 let g:clang_complete_auto = 1
 let g:clang_use_library = 1
+"let g:clang_complete_copen=1
+"let g:clang_hl_errors=1
+"let g:clang_periodic_quickfix=1
+let g:clang_close_preview=1
 let g:clang_debug = 1
-let g:clang_user_options='-I/usr/include/c++/4.8.2/ || exit 0'
+let g:clang_user_options='-I/usr/include/c++/4.8.4/ || exit 0'
 let g:clang_complete_copen=1
 let g:clang_hl_errors=1
+let g:clang_auto_user_options=".clang_complete, path, compile_commands.json"
 
 " *** Bookmarks
 let g:bookmark_save_per_working_dir = 1
 let g:bookmark_aut_save = 1
 
 " *** dbext " Don't want to public password, dummy!
-if filereadable("dbSettings.vim")
-    source dbSettings.vim
+if filereadable("~/.vim/dbSettings.vim")
+    source ~/.vim/dbSettings.vim
 endif
+    source ~/.vim/dbSettings.vim
 
 " *** GitGutter
 " As there was some error when starting Vim
@@ -181,6 +187,8 @@ map <F4> :Tagbar<CR>
 map <F5> :!clear && ./a.out<CR>
 map <F7> :w<CR>:make<CR>
 map <F9> :nohlsearch<CR>
+
+map ZX :qa!<CR>
 
 " Problem with mapping - no free, suitable keys left!
 " *** Moving lines feature
@@ -258,7 +266,14 @@ noremap k gk
 noremap $ g$
 noremap 0 0k
 
+" SQL helpers
+map <leader>ss :set syntax=sql<CR>:DBPromptForBufferParameters<CR>
+nnoremap <C-i> :DBExecSQLUnderCursor<CR>zz
+inoremap <C-i> <C-o>:DBExecSQLUnderCursor<CR>zz
+
 " *** Update .vimrc
-nmap <leader>v :edit $MYVIMRC<CR>
+nmap <leader>vv :edit $MYVIMRC<CR>
 map <leader>vim :source $MYVIMRC<CR>
 
+" Because of DBExt plugin
+iunmap <Tab>
