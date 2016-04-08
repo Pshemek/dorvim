@@ -33,6 +33,7 @@ Plugin 'https://github.com/MattesGroeger/vim-bookmarks'
 Plugin 'https://github.com/Chiel92/vim-autoformat'
 Plugin 'https://github.com/schickling/vim-bufonly'
 Plugin 'https://github.com/vim-scripts/dbext.vim'
+Plugin 'https://github.com/christoomey/vim-tmux-navigator'
 " Conque at this moment has an issue with this repo, might need to get from
 " the other source (official one).
 Plugin 'https://github.com/vim-scripts/Conque-Shell'
@@ -74,10 +75,14 @@ set foldenable          " Enable folding.
 set foldmethod=syntax   " Enable folding based on syntax.
 set foldlevelstart=99   " Start out with everything unfolded.
 set scrolloff=3
-set cursorline
 set ttyfast
 set fillchars=vert:│
 set relativenumber        " Show relative numbers of lines
+"set esckeys " IF no errors with esc key, delete this line.
+set timeoutlen=1000 ttimeoutlen=0
+"set cursorline
+autocmd InsertEnter * set cul
+autocmd InsertLeave * set nocul
 
 " Show clock when there is no statusline
 set ruler
@@ -189,18 +194,19 @@ map <F7> :w<CR>:make<CR>
 map <F9> :nohlsearch<CR>
 
 map ZX :qa!<CR>
+map XX :Bclose!<CR>
 
 " Problem with mapping - no free, suitable keys left!
 " *** Moving lines feature
 " Normal mode
-"nnoremap <C-n> :m .+1<CR>==
-"nnoremap <C-b> :m .-2<CR>==
+nnoremap <C-j> :m .+1<CR>==
+nnoremap <C-k> :m .-2<CR>==
 " Insert mode
-"inoremap <C-n> <ESC>:m .+1<CR>==gi
-"inoremap <C-b> <ESC>:m .-2<CR>==gi
+"inoremap <C-j> <ESC>:m .+1<CR>==gi
+"inoremap <C-k> <ESC>:m .-2<CR>==gi
 " Visual mode
-"vnoremap <C-n> :m '>+1<CR>gv=gv
-"vnoremap <C-b> :m '<-2<CR>gv=gv
+vnoremap <C-j> :m '>+1<CR>gv=gv
+vnoremap <C-k> :m '<-2<CR>gv=gv
 
 " *** Apparance 
 " Show whitespaces
@@ -230,7 +236,7 @@ map <C-\> :exec("tag ".expand("<cword>"))<CR>
 " Save bookmarks
 map ms :BookmarkSave .vim-bookmarks<CR> 
 " No highlight search results
-map <leader>? :nohlsearch<CR>
+map <leader>/ :nohlsearch<CR>
 
 " *** Copy-paste
 vmap <C-c> "+y
@@ -242,17 +248,22 @@ nnoremap <up> <nop>
 nnoremap <down> <nop>
 nnoremap <left> <nop>
 nnoremap <right> <nop>
-inoremap <up> <nop>
-inoremap <down> <nop>
-inoremap <left> <nop>
-inoremap <right> <nop>
+"inoremap <up> <nop>
+"inoremap <down> <nop>
+"inoremap <left> <nop>
+"inoremap <right> <nop>
 
 " *** Navigation
 " Windows navigation
-map <C-l> :wincmd l<CR>
-map <C-h> :wincmd h<CR>
-map <C-j> :wincmd j<CR>
-map <C-k> :wincmd k<CR>
+set <M-l>=l
+map <M-l> :wincmd l<CR>
+set <M-h>=h
+map <M-h> :wincmd h<CR>
+set <M-j>=j
+map <M-j> :wincmd j<CR>
+set <M-k>=k
+map <M-k> :wincmd k<CR>
+map <C-w><C-w> :close<CR>
 " Buffers navigation
 nnoremap <leader>j :CtrlSpaceGoUp<CR>
 nnoremap <leader>k :CtrlSpaceGoDown<CR>
@@ -277,3 +288,4 @@ map <leader>vim :source $MYVIMRC<CR>
 
 " Because of DBExt plugin
 iunmap <Tab>
+
