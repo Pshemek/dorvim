@@ -108,6 +108,11 @@ autocmd VimLeave * call system("xsel -ib", getreg('+'))
 " ******************************************************************************
 " Plugins configurations.
 " ******************************************************************************
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlPLastMode'
+let g:ctrlp_extensions = ['buffertag', 'tag', 'line', 'dir']
+set <M-p>=p
+nmap <M-p> :CtrlPTag<CR>
 " *** NERDTree
 " If only NerdTree left open, close it.
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
@@ -232,7 +237,7 @@ map <C-F> :execute "vimgrep /" . expand("<cword>") . "/ **/*.cpp **/*.h **/*.c *
 " Create Tags - required exuberant-ctags
 nmap <leader>tag :!ctags -R --sort=1 --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f tags .<CR>
 " Go to tag from tag file.  " Not sure if c-] does the same (ueses vim tag engine?)
-map <C-\> :exec("tag ".expand("<cword>"))<CR>
+map <C-B> :exec("tag ".expand("<cword>"))<CR>
 " Save bookmarks
 map ms :BookmarkSave .vim-bookmarks<CR> 
 " No highlight search results
@@ -279,13 +284,24 @@ noremap 0 0k
 
 " SQL helpers
 map <leader>ss :set syntax=sql<CR>:DBPromptForBufferParameters<CR>
-nnoremap <C-i> :DBExecSQLUnderCursor<CR>zz
-inoremap <C-i> <C-o>:DBExecSQLUnderCursor<CR>zz
+nnoremap <C-g> :DBExecSQLUnderCursor<CR>zz
+inoremap <C-g> <C-o>:DBExecSQLUnderCursor<CR>zz
 
 " *** Update .vimrc
 nmap <leader>vv :edit $MYVIMRC<CR>
 map <leader>vim :source $MYVIMRC<CR>
 
 " Because of DBExt plugin
-iunmap <Tab>
+"iunmap <Tab>
 
+" The Silver Searcher
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
