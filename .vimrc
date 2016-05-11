@@ -80,13 +80,14 @@ set fillchars=vert:│
 set relativenumber        " Show relative numbers of lines
 "set esckeys " IF no errors with esc key, delete this line.
 set timeoutlen=1000 ttimeoutlen=0
+set wildmenu
 "set cursorline
 autocmd InsertEnter * set cul
 autocmd InsertLeave * set nocul
 
 " Show clock when there is no statusline
 set ruler
-set rulerformat=%55(%{strftime('%a\ %b\ %e\ %I:%M\ %p')}\ %5l,%-6(%c%V%)\ %P%)
+"set rulerformat=%55(%{strftime('%a\ %b\ %e\ %I:%M\ %p')}\ %5l,%-6(%c%V%)\ %P%)
 
 syntax on
 syntax enable
@@ -137,7 +138,7 @@ let g:airline_symbols.paste = 'ρ'
 let g:airline_symbols.whitespace = 'Ξ'
 let g:airline_powerline_fonts = 1
 " Add clock
-let g:airline_section_y = airline#section#create(['ffenc','%{strftime("%H:%M")}'])
+"let g:airline_section_y = airline#section#create(['ffenc','%{strftime("%H:%M")}'])
 
 " *** Syntastic Config
 set statusline+=%#warningmsg#
@@ -172,7 +173,6 @@ let g:bookmark_aut_save = 1
 if filereadable("~/.vim/dbSettings.vim")
     source ~/.vim/dbSettings.vim
 endif
-    source ~/.vim/dbSettings.vim
 
 " *** GitGutter
 " As there was some error when starting Vim
@@ -204,14 +204,20 @@ map XX :Bclose!<CR>
 " Problem with mapping - no free, suitable keys left!
 " *** Moving lines feature
 " Normal mode
-nnoremap <C-j> :m .+1<CR>==
-nnoremap <C-k> :m .-2<CR>==
+"nnoremap <C-j> :m .+3<CR>==
+"nnoremap <C-k> :m .-2<CR>==
 " Insert mode
 "inoremap <C-j> <ESC>:m .+1<CR>==gi
 "inoremap <C-k> <ESC>:m .-2<CR>==gi
 " Visual mode
 vnoremap <C-j> :m '>+1<CR>gv=gv
 vnoremap <C-k> :m '<-2<CR>gv=gv
+
+"Navigation in insert mode (ugly?)
+imap <C-j> <C-o>j
+imap <C-k> <C-o>k
+imap <C-h> <C-o>h
+imap <C-l> <C-o>l
 
 " *** Apparance 
 " Show whitespaces
