@@ -78,6 +78,8 @@ set scrolloff=3
 set ttyfast
 set fillchars=vert:│
 set relativenumber        " Show relative numbers of lines
+set wildmenu
+set wildmode=list:longest,full
 "set esckeys " IF no errors with esc key, delete this line.
 set timeoutlen=1000 ttimeoutlen=0
 set wildmenu
@@ -196,7 +198,8 @@ map <F3> :NERDTreeClose<CR>:cclose<CR>
 map <F4> :Tagbar<CR>
 map <F5> :!clear && ./a.out<CR>
 map <F7> :w<CR>:make<CR>
-map <F9> :nohlsearch<CR>
+" I think it is too far..
+"map <F9> :nohlsearch<CR>
 
 map ZX :qa!<CR>
 map XX :Bclose!<CR>
@@ -231,6 +234,7 @@ nmap <leader>8d :set colorcolumn=0<CR>
 map <leader>sl :set laststatus=2<CR>
 " Toggle NerdTree
 nmap <leader>tt :NERDTreeToggle<CR>
+nmap <leader>cc :copen<CR>
 
 " *** Searching tools
 " Netxt & previous element.
@@ -289,7 +293,8 @@ noremap $ g$
 noremap 0 0k
 
 " SQL helpers
-map <leader>ss :set syntax=sql<CR>:DBPromptForBufferParameters<CR>
+nmap <leader>ss :set syntax=sql<CR>:DBPromptForBufferParameters<CR>
+nmap <leader>sct :DBCompleteTables<CR>
 nnoremap <C-g> :DBExecSQLUnderCursor<CR>zz
 inoremap <C-g> <C-o>:DBExecSQLUnderCursor<CR>zz
 
