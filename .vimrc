@@ -108,6 +108,9 @@ hi Visual term=reverse cterm=reverse guibg=Grey
 " Prevent VIM from clearing clipboard after exiting the VIM.
 autocmd VimLeave * call system("xsel -ib", getreg('+'))
 
+" Change annoying braces highliting
+highlight MatchParen cterm=bold ctermfg=blue ctermbg=none
+
 " ******************************************************************************
 " Plugins configurations.
 " ******************************************************************************
