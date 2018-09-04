@@ -10,38 +10,66 @@ filetype off                  " required
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
+" # The plugin to rule them all, it should be installed manually.
 Plugin 'https://github.com/gmarik/Vundle.vim'
+
+" # Neat and informative tabs and status bars (lighter than PowerLine)
 Plugin 'https://github.com/bling/vim-airline'
 Plugin 'https://github.com/vim-airline/vim-airline-themes'
-"Plugin 'https://github.com/Lokaltog/vim-powerline'
-Plugin 'https://github.com/vim-scripts/a.vim'
-Plugin 'https://github.com/Rip-Rip/clang_complete'
-Plugin 'https://github.com/kien/ctrlp.vim'
-Plugin 'https://github.com/Raimondi/delimitMate'
-Plugin 'https://github.com/xaizek/vim-inccomplete'
+
+" # Easy "search-everywhere plugin", to heavy for current use.
+"Plugin 'https://github.com/kien/ctrlp.vim'
+" # File system explorer 
 Plugin 'https://github.com/scrooloose/nerdtree'
-Plugin 'https://github.com/garbas/vim-snipmate'
+
+" # Auto end to quotes and braces (based on file type)
+Plugin 'https://github.com/Raimondi/delimitMate'
+" # Nice snippet handling tool, not used to often 
+" Plugin 'https://github.com/garbas/vim-snipmate'
+" # Big syntax checker tool, good if Vim used as IDE
 " Plugin 'https://github.com/scrooloose/syntastic'
-Plugin 'https://github.com/majutsushi/tagbar'
+" # Displays class description view based on tags
+" Plugin 'https://github.com/majutsushi/tagbar'
+" # Easy bookmark managements, good for IDE
+" Plugin 'https://github.com/MattesGroeger/vim-bookmarks'
+" # Autoformat code, IDE functionality
+" Plugin 'https://github.com/Chiel92/vim-autoformat'
+
+" # Utility plugin used by other, mostly IDE-like, plugins
 Plugin 'https://github.com/tomtom/tlib_vim'
+" # Utility plugin used by other, mostly IDE-like, plugins
 Plugin 'https://github.com/marcweber/vim-addon-mw-utils'
+
+" # Themes
 Plugin 'https://github.com/jnurmine/Zenburn'
+Plugin 'https://github.com/tomasr/molokai'
 Plugin 'https://github.com/altercation/vim-colors-solarized'
+
+" # Git plugins, I am using gitgutter, but fugitive might be better
 Plugin 'https://github.com/airblade/vim-gitgutter'
 Plugin 'https://github.com/tpope/vim-fugitive'
-Plugin 'https://github.com/MattesGroeger/vim-bookmarks'
-Plugin 'https://github.com/Chiel92/vim-autoformat'
+
+" # Close all but this buffer, I don't too often
 Plugin 'https://github.com/schickling/vim-bufonly'
+
+" # Good db connection plugin
 Plugin 'https://github.com/vim-scripts/dbext.vim'
+
+" # Integration with tmux
 Plugin 'https://github.com/christoomey/vim-tmux-navigator'
-" Conque at this moment has an issue with this repo, might need to get from
-" the other source (official one).
-Plugin 'https://github.com/vim-scripts/Conque-Shell'
-Plugin 'https://github.com/vim-ctrlspace/vim-ctrlspace'
-Plugin 'https://github.com/tomasr/molokai'
+
+" # CSV helping 
+" Plugin 'https://github.com/chrisbra/csv.vim'
+
 " Those two helps navigate, and are kinda good, but for now I do not use them.
 "Plugin 'https://github.com/goldfeld/vim-seek'
 "Plugin 'https://github.com/easymotion/vim-easymotion'
+
+" # C++ coding helpers
+"Plugin 'https://github.com/Rip-Rip/clang_complete'
+"Plugin 'https://github.com/xaizek/vim-inccomplete'
+"Plugin 'https://github.com/vim-scripts/a.vim'
+"
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -52,6 +80,8 @@ filetype plugin indent on    " required
 " ******************************************************************************
 " Basic setup.
 " ******************************************************************************
+set t_Co=256
+
 set exrc            " Enable external config.
 set secure          " Don't allow all comands from extern config.
 set tabstop=4       " How big tab key is.
@@ -96,8 +126,8 @@ syntax enable
 
 "set colorcolumn=81  " Mark column 81.
 set background=dark
-colors molokai
-"colors zenburn
+"colors molokai
+colors zenburn
 " Transparetn bg
 hi Normal ctermbg=none
 " Easy to see visual selection
@@ -114,11 +144,15 @@ highlight MatchParen cterm=bold ctermfg=blue ctermbg=none
 " ******************************************************************************
 " Plugins configurations.
 " ******************************************************************************
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlPLastMode'
-let g:ctrlp_extensions = ['buffertag', 'tag', 'line', 'dir']
-set <M-p>=p
-nmap <M-p> :CtrlPTag<CR>
+" *** Ctrl-P plugin / disabled because of heaviness and not used to often
+"let g:ctrlp_map = '<c-p>'
+"let g:ctrlp_cmd = 'CtrlP :pwd'
+"let g:ctrlp_cmd = 'CtrlPLastMode'
+"let g:ctrlp_extensions = ['buffertag', 'tag', 'line', 'dir']
+"let g:ctrlp_working_path_mode = 'ra'
+"set <M-p>=p
+"nmap <M-p> :CtrlPBuffer<CR>
+
 " *** NERDTree
 " If only NerdTree left open, close it.
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
@@ -146,29 +180,30 @@ let g:airline_powerline_fonts = 1
 "let g:airline_section_y = airline#section#create(['ffenc','%{strftime("%H:%M")}'])
 
 " *** Syntastic Config
-set statusline+=%#warningmsg#
+"set statusline+=%#warningmsg#
+"set statusline+=%*
+"
 "set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
 " I have set almost all off, for faster working with big projects.
 " let g:syntastic_always_populate_loc_list = 1
 " let g:syntastic_auto_loc_list = 0
 " let g:syntastic_check_on_open = 0
 " let g:syntastic_check_on_wq = 0
 
-" *** Clang
-let g:clang_library_path='/usr/lib/llvm-3.5/lib/'
+" *** Clang / Disabled because not much c++ coding anymore
+"let g:clang_library_path='/usr/lib/llvm-3.5/lib/'
 " *** Clang config
-let g:clang_complete_auto = 1
-let g:clang_use_library = 1
+"let g:clang_complete_auto = 1
+"let g:clang_use_library = 1
+""let g:clang_complete_copen=1
+""let g:clang_hl_errors=1
+""let g:clang_periodic_quickfix=1
+"let g:clang_close_preview=1
+"let g:clang_debug = 1
+"let g:clang_user_options='-I/usr/include/c++/4.8.4/ || exit 0'
 "let g:clang_complete_copen=1
 "let g:clang_hl_errors=1
-"let g:clang_periodic_quickfix=1
-let g:clang_close_preview=1
-let g:clang_debug = 1
-let g:clang_user_options='-I/usr/include/c++/4.8.4/ || exit 0'
-let g:clang_complete_copen=1
-let g:clang_hl_errors=1
-let g:clang_auto_user_options=".clang_complete, path, compile_commands.json"
+"let g:clang_auto_user_options=".clang_complete, path, compile_commands.json"
 
 " *** Bookmarks
 let g:bookmark_save_per_working_dir = 1
@@ -236,7 +271,8 @@ nmap <leader>8d :set colorcolumn=0<CR>
 " Show status line
 map <leader>sl :set laststatus=2<CR>
 " Toggle NerdTree
-nmap <leader>tt :NERDTreeToggle<CR>
+" Align plugin is using this mapping
+"nmap <leader>tt :NERDTreeToggle<CR>
 nmap <leader>cc :copen<CR>
 
 " *** Searching tools
@@ -249,7 +285,7 @@ map <leader>f :NERDTreeFind<CR>
 map <C-F> :execute "vimgrep /" . expand("<cword>") . "/ **/*.cpp **/*.h **/*.c **/*.cc" <Bar>
 " Create Tags - required exuberant-ctags
 nmap <leader>tag :!ctags -R --sort=1 --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -f tags .<CR>
-" Go to tag from tag file.  " Not sure if c-] does the same (ueses vim tag engine?)
+" Go to tag from tag file.  " Not sure if c-] does the same (uses vim tag engine?)
 map <C-B> :exec("tag ".expand("<cword>"))<CR>
 " Save bookmarks
 map ms :BookmarkSave .vim-bookmarks<CR> 
@@ -261,18 +297,12 @@ vmap <C-c> "+y
 nmap <C-c> "+yiw
 map <leader>p "+p
 
-" Lets try it the 'right' way
-nnoremap <up> <nop>
-nnoremap <down> <nop>
-nnoremap <left> <nop>
-nnoremap <right> <nop>
-"inoremap <up> <nop>
-"inoremap <down> <nop>
-"inoremap <left> <nop>
-"inoremap <right> <nop>
+" Go to left and right buffer
+nnoremap <left> :bp<CR>
+nnoremap <right> :bn<CR>
 
 " *** Navigation
-" Windows navigation
+" Windows navigation / integrated with tmux?
 set <M-l>=l
 map <M-l> :wincmd l<CR>
 set <M-h>=h
@@ -282,6 +312,12 @@ map <M-j> :wincmd j<CR>
 set <M-k>=k
 map <M-k> :wincmd k<CR>
 map <C-w><C-w> :close<CR>
+
+" Resive window / buggy
+"nnoremap <silent> <leader><up> :exe "resize " . (winheight(0) * 3/2)<CR>
+"nnoremap <silent> <leader><down> :exe "resize " . (winheight(0) * 2/3)<CR>
+"nnoremap <silent> <leader><right> :exe "vertical resize " . (winheight(0) * 3/2)<CR>
+"nnoremap <silent> <leader><left> :exe "vertical resize " . (winheight(0) * 2/3)<CR>
 " Buffers navigation
 nnoremap <leader>j :CtrlSpaceGoUp<CR>
 nnoremap <leader>k :CtrlSpaceGoDown<CR>
@@ -293,7 +329,7 @@ nnoremap <C-Y> 3<C-Y>
 noremap j gj
 noremap k gk
 noremap $ g$
-noremap 0 0k
+noremap 0 g0
 
 " SQL helpers
 nmap <leader>ss :set syntax=sql<CR>:DBPromptForBufferParameters<CR>
@@ -304,6 +340,8 @@ inoremap <C-g> <C-o>:DBExecSQLUnderCursor<CR>zz
 " *** Update .vimrc
 nmap <leader>vv :edit $MYVIMRC<CR>
 map <leader>vim :source $MYVIMRC<CR>
+map <leader>json V:!python -m json.tool<CR>
+map <leader>xml V:!xmllint --format -<CR>
 
 " Because of DBExt plugin
 "iunmap <Tab>
@@ -319,3 +357,13 @@ if executable('ag')
   " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
 endif
+
+set mouse=a
+
+" Markdown helper
+noremap <leader>m1 yyp<c-v>$r=
+noremap <leader>m2 yyp<c-v>$r-
+noremap <leader>md :put =strftime('%Y-%m-%d')<CR>
+
+set foldmethod=syntax
+let xml_syntax_folding=1 
