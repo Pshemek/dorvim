@@ -18,7 +18,7 @@ Plugin 'https://github.com/bling/vim-airline'
 Plugin 'https://github.com/vim-airline/vim-airline-themes'
 
 " # Easy "search-everywhere plugin", to heavy for current use.
-"Plugin 'https://github.com/kien/ctrlp.vim'
+Plugin 'https://github.com/kien/ctrlp.vim'
 " # File system explorer 
 Plugin 'https://github.com/scrooloose/nerdtree'
 
@@ -91,7 +91,7 @@ set expandtab		" Tab to spaces.
 set smartindent     " Auto-indent for a c-like
 set backspace=indent,eol,start " Make Backspace even in eol like situations.
 set copyindent      " Take indentation from last line.
-set linebreak
+set linebreak       " Soft (not inserting EOL) wrapping for long lines
 set ignorecase      " Makes searching easier...
 set smartcase       " ...and smarter.
 set incsearch       " Search in-time.
@@ -114,8 +114,8 @@ set wildmode=list:longest,full
 set timeoutlen=1000 ttimeoutlen=0
 set wildmenu
 "set cursorline
-autocmd InsertEnter * set cul
-autocmd InsertLeave * set nocul
+autocmd InsertEnter * set cul       " Highlight edited line in insert mode...
+autocmd InsertLeave * set nocul     " ...and only in insert mode.
 
 " Show clock when there is no statusline
 set ruler
@@ -145,13 +145,14 @@ highlight MatchParen cterm=bold ctermfg=blue ctermbg=none
 " Plugins configurations.
 " ******************************************************************************
 " *** Ctrl-P plugin / disabled because of heaviness and not used to often
-"let g:ctrlp_map = '<c-p>'
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlPBuffer'
 "let g:ctrlp_cmd = 'CtrlP :pwd'
 "let g:ctrlp_cmd = 'CtrlPLastMode'
 "let g:ctrlp_extensions = ['buffertag', 'tag', 'line', 'dir']
 "let g:ctrlp_working_path_mode = 'ra'
-"set <M-p>=p
-"nmap <M-p> :CtrlPBuffer<CR>
+set <M-p>=p
+nmap <M-p> :CtrlPBuffer<CR>
 
 " *** NERDTree
 " If only NerdTree left open, close it.
